@@ -1,7 +1,45 @@
-# RealLLM
+# Reliable LLM: Uncertainty & Confidence and Model Calibration
 
-## Paper
+## Survey & Investigation
 
-| Title  | Conference/Journal  |
-|  ----  | ----  |
-| [Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs](https://openreview.net/forum?id=gjeQKFxFpZ)  | in submission to *ICLR 2024* |
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [A Survey of Confidence Estimation and Calibration in Large Language Models](https://arxiv.org/abs/2311.08298) | prePrint | [[Link]()] |
+| [Uncertainty Quantification with Pre-trained Language Models: A Large-Scale Empirical Analysis](https://openreview.net/forum?id=gjeQKFxFpZ) | EMNLP 2022 | [[Link]()] |
+
+## Methodology
+
+### Uncertainty Estimation & Quantification
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs](https://openreview.net/forum?id=gjeQKFxFpZ) | ICLR 2024 | [[Link]()] |
+| [Generating with Confidence: Uncertainty Quantification for Black-box Large Language Models](https://arxiv.org/abs/2305.19187) | prePrint | [[Link]()] |
+| [Teaching Models to Express Their Uncertainty in Words](https://openreview.net/forum?id=8s8K2UZGTZ) | TMLR 2022 | [[Link]()] |
+| [Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation](https://openreview.net/forum?id=VD-AYtP0dve) | ICLR 2023 | [[Link]()] |
+
+### Model Calibration
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [How Can We Know When Language Models Know? On the Calibration of Language Models for Question Answering](https://aclanthology.org/2021.tacl-1.57/) | TACL 2022 | [[Link]()] |
+| [Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback](https://aclanthology.org/2023.emnlp-main.330/) | EMNLP 2023 | [[Link]()] |
+| [Reducing Conversational Agents’ Overconfidence Through Linguistic Calibration](https://aclanthology.org/2022.tacl-1.50/) | TACL 2022 | [[Link]()] |
+| [Re-Examining Calibration: The Case of Question Answering](https://aclanthology.org/2022.findings-emnlp.204/) | TACL 2021 | [[Link]()] |
+
+#### Classification & Multiple Choices
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Preserving Pre-trained Features Helps Calibrate Fine-tuned Language Models](https://arxiv.org/abs/2305.19249) | ICLR 2023 | [[Link](./pages/method/docs/zhou2024batch.html)] |
+| [Calibrating the Confidence of Large Language Models by Eliciting Fidelity](https://arxiv.org/abs/2404.02655) | prePrint | [[Link](./pages/method/docs/zhang2024calibrating.html)] |
+| [Few-Shot Recalibration of Language Models](https://arxiv.org/abs/2403.18286) | prePrint | [[Link](./pages/method/docs/li2024fewshot.html)] |
+| [Enhancing Confidence Expression in Large Language Models Through Learning from Past Experience](https://arxiv.org/abs/2404.10315) | prePrint | [[Link](./pages/method/docs/han2024enhancing.html)] |
+
+
+### Natural Language Generation
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Uncertainty in Language Models: Assessment through Rank-Calibration](https://arxiv.org/abs/2404.03163) | prePrint | [[Link](./pages/method/docs/zhang2024calibrating.html)] |
+| [Calibrating Large Language Models Using Their Generations Only](https://arxiv.org/abs/2403.05973) | prePrint | [[Link]()] |
