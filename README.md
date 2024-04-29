@@ -31,15 +31,15 @@
 
 | Title | Conference/Journal | Notes |
 | ---- | ---- | ---- |
-| [Preserving Pre-trained Features Helps Calibrate Fine-tuned Language Models](https://arxiv.org/abs/2305.19249) | ICLR 2023 | [[Link](./pages/method/docs/zhou2024batch.html)] |
-| [Calibrating the Confidence of Large Language Models by Eliciting Fidelity](https://arxiv.org/abs/2404.02655) | prePrint | [[Link](./pages/method/docs/zhang2024calibrating.html)] |
+| [Preserving Pre-trained Features Helps Calibrate Fine-tuned Language Models](https://arxiv.org/abs/2305.19249) | ICLR 2023 | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhou2024batch.html)] |
+| [Calibrating the Confidence of Large Language Models by Eliciting Fidelity](https://arxiv.org/abs/2404.02655) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhang2024calibrating.html)] |
 | [Few-Shot Recalibration of Language Models](https://arxiv.org/abs/2403.18286) | prePrint | [[Link](./pages/method/docs/li2024fewshot.html)] |
-| [Enhancing Confidence Expression in Large Language Models Through Learning from Past Experience](https://arxiv.org/abs/2404.10315) | prePrint | [[Link](./pages/method/docs/han2024enhancing.html)] |
+| [Enhancing Confidence Expression in Large Language Models Through Learning from Past Experience](https://arxiv.org/abs/2404.10315) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM/pages/method/docs/han2024enhancing.html)] |
 
 
 ### Natural Language Generation
 
 | Title | Conference/Journal | Notes |
 | ---- | ---- | ---- |
-| [Uncertainty in Language Models: Assessment through Rank-Calibration](https://arxiv.org/abs/2404.03163) | prePrint | [[Link](./pages/method/docs/zhang2024calibrating.html)] |
+| [Uncertainty in Language Models: Assessment through Rank-Calibration](https://arxiv.org/abs/2404.03163) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhang2024calibrating.html)] |
 | [Calibrating Large Language Models Using Their Generations Only](https://arxiv.org/abs/2403.05973) | prePrint | [[Link]()] |
