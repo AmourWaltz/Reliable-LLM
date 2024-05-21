@@ -4,55 +4,129 @@
 
 ## Motivation
 
-While LMs may appear well-calibrated over broad distributions, this often hides significant miscalibration within narrower slices (e.g., systemic overconfidence in math can balance out systemic under-confidence in history, yielding perfect calibration in aggregate).
+- Existing models cannot produce text with calibrated confidence statements.
+- Currently, when an LM lacks knowledge about a topic, it will do one of two things: hallucinate incorrect claims with complete confidence, or, in the case of a few strong closed-source models, abstain from making claims.
+- Linguistic calibration — conveying confidence levels in natural language that equal the likelihood that one’s claims are correct—could mitigate the harms of hallucination.
+- The long-form, multi-claim generations that users encounter in practice have neither a single closed-form confidence nor a correctness; each generation contains information that answers many possible downstream questions.
 
-This miscalibration problem is hidden for the combined distribution because overconfidence in some domains cancels out underconfidence in others.
+![alt text](../imgs/band2024linguistic/image-2.png)
 
-![alt text](../imgs/li2024fewshot/image.png)
+## Preliminaries
 
-![alt text](../imgs/li2024fewshot/image-2.png)
+- **Goal**: Formulate a tractable objective that enables the end-to-end linguistic calibration of long-form LM generations.
+
+### User Decision Problem
+
+**Decision-making with LM assistance**: The user first prompts an LM π with an open-ended query q. The LM generates a long-form context z.
+Any decision task has an associated question x with answer y.
+The true distribution over answers p(y | x) is unknown to the user.
+
+### Linguistic Calibration by Calibrating Generations to Forecasts
+
+- **Problem**: It is difficult to obtain real-world rewards from decision-making, and moreover to obtain a real-world distribution over queries to LMs and related user decision tasks.
+**Solution**:
+- Optimizing user’s probabilistic forecast over answers will encourage the LM to generate contexts z that enable users to provide calibrated answers to decision task questions x.
+- Use knowledge-intensive question-answering datasets to generate a set of user decision tasks.
+
+**Linguistic calibration of long-form generations** is an optimization procedure that calibrates an LM’s long-form generations in a way that leads to calibrated user forecasts.
+
+### Calibration and Decision-making
+
+- Calibration implies that Bayes-optimal decisions are zero expected regret.
+- Scoring rules measure the quality of a forecast. If a scoring rule is proper, the forecaster’s reward has the desirable property that it is maximized when the forecaster predicts the true probability.
+
+![alt text](../imgs/band2024linguistic/image.png)
+
+### Linguistic Calibration Objective
+
+![alt text](../imgs/band2024linguistic/image-1.png)
+
+**Guarantees for weaker notions of calibration**
 
 ## Methodology
 
-### Few-Shot Slice-Specific Recalibration
+**Two-step Framework**
+- Obtain an LM with some ability to express confidences in a long-form generation.
+- Use it as an RL policy and optimize our proper scoring rule objective end-to-end, with supervision from the surrogate task distribution.
 
-1. Train a separate recalibration model that takes a few unlabeled examples as input and outputs a curve that maps the LM’s confidence scores to slice-specific estimates of precision.
+![alt text](../imgs/band2024linguistic/image-3.png)
 
-### Parametrizing f: Predicting Precision Curves vs. Calibration Curves
+### Generating Supervision for Long-Form Calibration
 
-1. Define f to be the precision curve, which maps confidence thresholds to precision scores.
-2. This flexibility of the precision curve allows us to accomplish a variety of downstream goals such as reducing calibration error, finding optimal confidence thresholds for desired precision.
-3. Choose precision curves as our calibrator’s prediction target
+1. Sample a questionanswer pair (x, y) ∼ p(x, y) from a question-answering dataset.
+2. LM query q such that z ∼ π(z | q) is a long-form generation salient to (x, y)
 
-### Binning Steps for Calibration Curve
+### Summary Distillation
 
-1. The binning design, where scores can either be grouped into equally-spaced bins with equal interval ranges, or equally-sized bins with an equal number of examples per bin. 
-2. The number of bins such that scores can be grouped into a large number of bins each containing a small number of examples, or a small number of bins each containing many examples.
+Summary distillation bootstraps a base LM πBase to have some ability to express its confidence in long-form natural language generations.
+Follow a simple approach inspired by Self-Consistency, which obtains calibrated LM confidences for short answer questions by computing a statistic of many output samples.
 
-### Synthetic Data Construction
+- To obtain statements of confidence that are faithful to the base model’s internal confidence levels, prompt an API-based LLM to summarize these samples into a single consensus paragraph s with statements of confidence based on the frequency of claims.
+- To distill these extracted confidences back into the base model, finetune π-Base on the dataset of open-ended query and summary pairs {(q(i), s(i))}iN=1 to obtain the supervised finetuned (SFT) model.
 
-### Training the Few-Shot Recalibrator
+### Decision-Based RL
 
-Predicting a higher precision score than the ground-truth means the recalibrator believes the model correctly answers more questions than it actually can, and the confidence threshold does not trigger abstention when it should.
+Forecasting conditional on z is not a fundamentally challenging task. For example, if z provides a clear list of possible answers to the question x and associated percentage likelihoods, forecasting is a simple extractive task.
 
-![alt text](../imgs/li2024fewshot/image-1.png)
+**RL objective**
+
+![alt text](../imgs/band2024linguistic/image-4.png)
+
+### Implementation
+
+Decompose forecasting into two operations:
+
+![alt text](../imgs/band2024linguistic/image-5.png)
+
+![alt text](../imgs/band2024linguistic/image-6.png)
+
+![alt text](../imgs/band2024linguistic/image-7.png)
 
 
 ## Experiments
 
-### Models
+### Goals
 
-- LLaMA-65B and PaLM2-Large.
+1. LC provides better calibration with comparable accuracy.
+2. LC is computationally tractable.
+3. LC generalizes well out-of-distribution.
 
-### Datasets
+### Setup
 
-- MMLU and XNLI.
 
-### Settings
+#### Models
 
-- Achieving Target Precision.
-- Reducing Calibration Error.
+- Llama 2 7B.
+
+#### Datasets
+
+- TriviaQA.
+
+#### Metrics
+
+- Expected Calibration Error (ECE).
+
+#### Baselines
+
+- ICL.
+- Claude Distill.
+- Factuality SFT: Use the above ICL baseline to generate long-form responses over all queries in the SFT split, and finetune Llama 2 7B on these (query, response) pairs.
+- Factuality RL: Train a reward model which scores the correctness of long-form outputs and use it in RL.
+- Summary ICL.
+- GPT-4.
+
+![alt text](../imgs/band2024linguistic/image-8.png)
+
+### Linguistic Calibration using Question-Answering Datasets
+
+- Better ECE with comparable accuracy in long-form generation.
+- Reliability diagrams demonstrate meaningful confidences: LC model confidences are indeed both meaningful (they cover a wide range of confidence values), and are consistently close to the identity across confidence values.
+
+![alt text](../imgs/band2024linguistic/image-9.png)
+
+### Zero-Shot Generalization to a Biography Generation Task
 
 ## Future Work
 
-Future work should study few-shot recalibration for natural language generation tasks, to steer model generated text to be more or less conservative, as well as apply this approach to a broader set of models, including instruction-tuned and RLHF models, and multimodal settings.
+- Investigating how LM interpretations of ambiguous linguistic confidence statements match up with human interpretations is important future work.
+- Future work should consider curating a more representative dataset of decision-making tasks, to improve LC’s generalization to user decisions in-the-wild.
