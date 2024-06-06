@@ -10,7 +10,7 @@
 
 ### Confidence & Uncertainty Estimation Generative Models
 
-<img src="figs/calibration.png"  width=75%/>
+<img src="figs/calibration.png"  width=80%/>
 
 Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 
@@ -24,7 +24,7 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 
 ### Confidence & Uncertainty Estimation Methods on LLMs
 
-<img src="figs/uncertainty.png"  width=90%/>
+<img src="figs/uncertainty.png"  width=100%/>
 
 ## Related Works
 
