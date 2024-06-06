@@ -10,7 +10,7 @@
 
 ### Confidence & Uncertainty Estimation Generative Models
 
-<img src="figs/calibration.png"  width=50%/>
+<img src="figs/calibration.png"  width=75%/>
 
 Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 
@@ -24,7 +24,7 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 
 ### Confidence & Uncertainty Estimation Methods on LLMs
 
-<img src="figs/uncertainty.png"  width=70%/>
+<img src="figs/uncertainty.png"  width=90%/>
 
 ## Related Works
 
@@ -48,7 +48,7 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 | Title | Conference/Journal | Notes |
 | ---- | ---- | ---- |
 | [Generating with Confidence: Uncertainty Quantification for Black-box Large Language Models](https://arxiv.org/abs/2305.19187) | prePrint | [[Link]()] |
-| [Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation](https://openreview.net/forum?id=VD-AYtP0dve) | ICLR 2023 | [[Link]()] |
+| [Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation](https://openreview.net/forum?id=VD-AYtP0dve) | ICLR 2023 | [[Link](./files/semantic%20uncertainty.pdf)] |
 | [When Quantization Affects Confidence of Large Language Models?](https://arxiv.org/abs/2405.00632) | prePrint | [[Link]()] |
 
 #### Uncertainty Expressions
