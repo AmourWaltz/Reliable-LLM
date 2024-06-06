@@ -8,7 +8,7 @@
 
 ## Method
 
-![alt text](../imgs/yang2023calibrating/image.png)
+![alt text](../imgs/yang2023improving/image.png)
 
 1. For each question in the calibration dataset, the model generates multiple responses, each labeled as “correct” or “incorrect”, with corresponding uncertainty calculations. 
 2. When all of the model’s responses for a particular question are classified as “incorrect”, the uncertainty-aware model should refrain from providing an answer. 
@@ -16,7 +16,7 @@
 
 ### Overview
 
-![alt text](../imgs/yang2023calibrating/image-1.png)
+![alt text](../imgs/yang2023improving/image-1.png)
 
 - The uncertainty-aware framework is divided into two steps, namely **uncertainty score calculation** and **uncertainty-aware correction**.
   1. Utilize the logit output values of the model’s response to obtain the uncertainty of each generated token.
@@ -74,7 +74,7 @@
 - Analysis of different uncertainty estimation methods - Log-sum is optimal.
 - Analysis of mean uncertainty score and AUROC - Underscores the presence of a correlation between the mean uncertainty of responses and overall accuracy.
 
-![alt text](../imgs/yang2023calibrating/image-2.png)
+![alt text](../imgs/yang2023improving/image-2.png)
 
 ### Case Study
 
