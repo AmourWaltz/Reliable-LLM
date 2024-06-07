@@ -1,10 +1,8 @@
 <!-- _coverpage.md -->
 
-# Beyond's Studio
+# Reliable LLM
 
 > 📚 Cultivating My Mind.
 
-> ⭐️ Stay Hungry, Stay Foolish.
-
-[GitHub](https://github.com/AmourWaltz/BeyondStudio/)
+[GitHub](https://github.com/AmourWaltz/Reliable-LLM/)
 [Get Started](/README.md)

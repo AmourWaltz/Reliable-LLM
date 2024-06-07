@@ -1,80 +1,105 @@
-# Beyond's Studio
-</br>
+# Reliable LLM: Uncertainty & Confidence and Model Calibration
 
-## My Blogs
-#### Academia
-<table align="center" style="width:100%;">
-<thead>
-  <tr>
-    <th> 机器学习篇 Machine Learning </th>
-    <th> 深度学习篇 Deep Learning </th>
-    <th> 论文阅读 Paper Reading </th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">线性回归 Linear Regression</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">学习理论 Learning Theory </td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">自然语言处理 Natural Language Processing</td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">线性分类 Linear Classification</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">信息论 Information Theory </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">概率分布 Probability Distribution</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">神经网络 Neural Networks</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">核方法 Kernel Method</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">支持向量机 Support Vector Machine</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">图模型 Graph Models</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">期望最大化算法 EM Algorithm</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">变分推断 Variational Inference</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">蒙特卡罗采样 Monte Carlo Sampling</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">主成分分析 Principal Component Analysis</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-  <tr>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small">隐马尔科夫模型 Hidden Markov Model</span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-    <td><span style="font-weight:normal;font-style:normal;text-decoration:none;font-size:small"> </span></td>
-  </tr>
-</tbody>
-</table>
+## Background & Preliminary
+
+### Model Calibration on Classification Tasks
+
+-  Models are prone to be **over-confident** in predictions using maximizing likelihood (MLE) training, it is crucial to identify the **confidence score or uncertainty estimation** for reliable AI applications.
+-  A model is considered **well-calibrated** if the **confidence score of predictions** (SoftMax probability) are well-aligned with the **actual probability** of answers being correct.
+-  **Expected Calibration Error (ECE)** is used to measure the calibration performance.
+
+### Confidence & Uncertainty Estimation Generative Models
+
+<img src="figs/calibration.png"  width=60%/>
+
+Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
+
+### Confidence & Uncertainty Estimation Generative Models
+
+- To calibrate generative LLMs, we should quantify the **confidence & uncertainty** on generated sentences.
+- Uncertainty: Categorized into **aleatoric (data) and epistemic (model)** uncertainty. Frequently measured by the entropy of the prediction to indicate the dispersion of the model prediction.
+- Confidence: Generally associated with both the input and the prediction.
+- The terms uncertainty and confidence are often used interchangeably.
+<!-- $$U(x)=H(\boldsymbol{S}|x)=-\sum_{\boldsymbol{s}}p(\boldsymbol{s}|x)\log{(p(\boldsymbol{s}|x))}$$ -->
+
+### Confidence & Uncertainty Estimation Methods on LLMs
+
+<img src="figs/uncertainty.png"  width=80%/>
+
+## Related Works
+
+### Survey
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [A Survey of Confidence Estimation and Calibration in Large Language Models](https://arxiv.org/abs/2311.08298) | prePrint | [[Link]()] |
+| [Uncertainty Quantification with Pre-trained Language Models: A Large-Scale Empirical Analysis](https://openreview.net/forum?id=gjeQKFxFpZ) | EMNLP 2022 | [[Link]()] |
+
+### Known-Unknown
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Can AI Assistants Know What They Don’t Know?](https://arxiv.org/abs/2401.13275) | prePrint | [[Link]()] |
+
+### Confidence & Uncertainty Estimation
+
+#### Uncertainty Quantification
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Generating with Confidence: Uncertainty Quantification for Black-box Large Language Models](https://arxiv.org/abs/2305.19187) | prePrint | [[Link]()] |
+| [Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation](https://openreview.net/forum?id=VD-AYtP0dve) | ICLR 2023 | [[Link](https://amourwaltz.github.io/Reliable-LLM/files/semantic%20uncertainty.pdf)] |
+| [When Quantization Affects Confidence of Large Language Models?](https://arxiv.org/abs/2405.00632) | prePrint | [[Link]()] |
+| [Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs](https://arxiv.org/abs/2306.13063) | ICLR 2024 | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/xiong2024can.html)] |
+| [Kernel Language Entropy: Fine-grained Uncertainty Quantification for LLMs from Semantic Similarities](https://arxiv.org/abs/2405.20003) | prePrint | [[Link]()] |
 
 
-## LICENSE
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+#### Linguistic Uncertainty Expressions
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Teaching Models to Express Their Uncertainty in Words](https://openreview.net/forum?id=8s8K2UZGTZ) | TMLR 2022 | [[Link]()] |
+| [Relying on the Unreliable: The Impact of Language Models’ Reluctance to Express Uncertainty](https://arxiv.org/abs/2401.06730) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhou2024relying.html)] |
+| ["I'm Not Sure, But...": Examining the Impact of Large Language Models' Uncertainty Expression on User Reliance and Trust](https://arxiv.org/abs/2405.00623) | FAccT 2024 | [[Link]()] |
+| [Can Large Language Models Faithfully Express Their Intrinsic Uncertainty in Words?](https://arxiv.org/abs/2405.00623) | prePrint | [[Link]()] |
+
+
+### Model Calibration
+
+#### Classification & Multiple Choices
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Preserving Pre-trained Features Helps Calibrate Fine-tuned Language Models](https://arxiv.org/abs/2305.19249) | ICLR 2023 | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhou2024batch.html)] |
+| [Calibrating the Confidence of Large Language Models by Eliciting Fidelity](https://arxiv.org/abs/2404.02655) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhang2024calibrating.html)] |
+| [Few-Shot Recalibration of Language Models](https://arxiv.org/abs/2403.18286) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM/pages/method/docs/li2024fewshot.html)] |
+| [Enhancing Confidence Expression in Large Language Models Through Learning from Past Experience](https://arxiv.org/abs/2404.10315) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM/pages/method/docs/han2024enhancing.html)] |
+
+#### Question & Answering
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [How Can We Know When Language Models Know? On the Calibration of Language Models for Question Answering](https://aclanthology.org/2021.tacl-1.57/) | TACL 2022 | [[Link]()] |
+| [Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback](https://aclanthology.org/2023.emnlp-main.330/) | EMNLP 2023 | [[Link]()] |
+| [Reducing Conversational Agents’ Overconfidence Through Linguistic Calibration](https://aclanthology.org/2022.tacl-1.50/) | TACL 2022 | [[Link]()] |
+| [Re-Examining Calibration: The Case of Question Answering](https://aclanthology.org/2022.findings-emnlp.204/) | TACL 2021 | [[Link]()] |
+
+#### Natural Language Generation
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Uncertainty in Language Models: Assessment through Rank-Calibration](https://arxiv.org/abs/2404.03163) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/zhang2024calibrating.html)] |
+| [Improving the Reliability of Large Language Models by Leveraging Uncertainty-Aware In-Context Learning](https://arxiv.org/abs/2310.04782) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/yang2023improving.html)] |
+| [Calibrating Large Language Models Using Their Generations Only](https://arxiv.org/abs/2403.05973) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/ulmer2024calibrating.html)] |
+| [Linguistic Calibration of Language Models](https://arxiv.org/abs/2404.00474) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/band2024linguistic.html)] |
+| [When to Trust LLMs: Aligning Confidence with Response Quality](https://arxiv.org/abs/2404.17287) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/method/docs/tao2024when.html)] |
+| [SaySelf: Teaching LLMs to Express Confidence with Self-Reflective Rationales](https://arxiv.org/abs/2405.20974) | prePrint | [[Link]()] |
+| [Calibrating Large Language Models with Sample Consistency](https://arxiv.org/abs/2402.13904) | prePrint | [[Link]()] |
+
+## Future Directions
+
+1. More advanced methods to assist LLMs hallucination detection and human decisions. (A new paradigm) 
+2. Confidence estimation for long-term generations like code, novel, etc. (Benchmark) 
+3. Learning to explain and clarify its confidence estimation and calibration. (Natural language)
+4. Calibration on human variation (Misalignment between LM measures and human disagreement).
+5. Confidence estimation and calibration for multi-modal LLMs.
