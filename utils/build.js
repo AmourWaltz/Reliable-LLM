@@ -1,7 +1,6 @@
 const INDEX = `${__dirname}/../index.html`;
-const PAGES = `${__dirname}/../pages/method/files/`;
-// const PAGES = `${__dirname}/../papers/method/han2024enhancing/`;
-const BUILD = `${__dirname}/../pages/method/docs/`;
+const PAGES = `${__dirname}/../page2/docs/`;
+const BUILD = `${__dirname}/../page2/pages/`;
 
 const fs = require('fs');
 const marked = require('./lib/marked-node');
