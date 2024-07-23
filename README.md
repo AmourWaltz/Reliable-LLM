@@ -54,6 +54,7 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 | [Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs](https://arxiv.org/abs/2306.13063) | ICLR 2024 | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/xiong2024can.html)] |
 | [Kernel Language Entropy: Fine-grained Uncertainty Quantification for LLMs from Semantic Similarities](https://arxiv.org/abs/2405.20003) | prePrint | [[Link]()] |
 | [Semantically Diverse Language Generation for Uncertainty Estimation in Language Models](https://arxiv.org/abs/2405.20003) | prePrint | [[Link]()] |
+| [Uncertainty is Fragile: Manipulating Uncertainty in Large Language Models](https://www.arxiv.org/abs/2407.11282) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/zeng2024uncertainty.html)] |
 
 
 #### Linguistic Uncertainty Expressions

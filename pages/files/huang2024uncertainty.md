@@ -4,72 +4,50 @@
 
 ## Motivation
 
-- It is crucial to correctly quantify their uncertainty in responding to given inputs. 
-- Many uncertainty measures (e.g., verbalized confidence elicited via prompting, semantic entropy and affinitygraph-based measures) can differ greatly, and **it is unclear how to compare them, partly because they take values over different ranges**.
-- Uncertainty measures are more general and arguably more principled than confidence measures for LMs, but they **lack a universal assessment metric** such as ECE. A key issue is that uncertainty measures are not necessarily commensurate.
-
-### Difficulties of Confidence Measure for NLG Tasks
-
-1. The label space of produced textual responses is often exponentially too large to assess correctness with respect to the output length for any given input.
-2. Logits encode the likelihood of selecting the next token and do not necessarily capture linguistic sense.
-3. Even hand-crafted prompts intended to make LMs express confidence explicitly may not lead to reliable confidence values because elicitation is heavily tied to prompt formats.
-
-
-## Limitations of Existing Assessments
-
-### Ad hoc correctness thresholding
-
-The relative AUROC results of distinct measures vary drastically with the choice of τ. 
-This is especially concerning given that there seems to be no principled way to set this threshold.
-
-### Diverse output ranges
-
-The second limitation of existing assessments is rooted in the diverse output ranges of the uncertainty or confidence measures.
-
-### Strong dependence on LM performance
-
-This is undesirable because our goal is to provide an overall assessment of the uncertainty measure, which may in the future need to be applied to different LMs.
-
-
-### Desiderata of evaluation
+- While many studies focus on improving the accuracy of uncertainty estimations for LLMs, this research investigates the fragility of uncertainty estimation and explores potential attacks.
+- Backdoor Attack: Alter an LLM’s output probability distribution, causing the probability distribution to converge towards an attacker-predefined distribution while ensuring that the top-1 prediction remains unchanged.
 
 ## Methodology
 
-### Workflow
+### Few-Shot Slice-Specific Recalibration
 
-![alt text](../imgs/huang2024uncertainty/image.png)
+1. Train a separate recalibration model that takes a few unlabeled examples as input and outputs a curve that maps the LM’s confidence scores to slice-specific estimates of precision.
 
-### Rank-Calibration
+### Parametrizing f: Predicting Precision Curves vs. Calibration Curves
 
-1. An uncertainty measure U is rank-calibrated if (1) holds for any u in U ’s range: on average, lower uncertainty implies higher generative quality.
-2. Higher values of a confidence measure should imply higher generation accuracy.
+1. Define f to be the precision curve, which maps confidence thresholds to precision scores.
+2. This flexibility of the precision curve allows us to accomplish a variety of downstream goals such as reducing calibration error, finding optimal confidence thresholds for desired precision.
+3. Choose precision curves as our calibrator’s prediction target
 
-### Advantages
+### Binning Steps for Calibration Curve
 
-1. The empirical RCE does not require any thresholding of the correctness values. 
-2. Rankcalibration assesses the monotonicity of uncertainty values by leveraging relative ranks, which makes it independent of the output range. 
-3. Similar to ECE, the RCE is not directly tied to the generation performance of the LM. 
-4. The assessment is practical for any uncertainty/confidence measures.
+1. The binning design, where scores can either be grouped into equally-spaced bins with equal interval ranges, or equally-sized bins with an equal number of examples per bin. 
+2. The number of bins such that scores can be grouped into a large number of bins each containing a small number of examples, or a small number of bins each containing many examples.
+
+### Synthetic Data Construction
+
+### Training the Few-Shot Recalibrator
+
+Predicting a higher precision score than the ground-truth means the recalibrator believes the model correctly answers more questions than it actually can, and the confidence threshold does not trigger abstention when it should.
+
+![alt text](../imgs/li2024fewshot/image-1.png)
 
 
 ## Experiments
 
-### Datasets
-
-- TriviaQA, Natural Questions, SQuAD1, and Meadow.
-
 ### Models
 
-- Llama-2-7b, Llama-2-7b-chat, GPT-3.5-turbo.
+- LLaMA-65B and PaLM2-Large.
 
-### Metrics
+### Datasets
 
-- Rouge-L score, BERT similarity, and ChatGPT evaluation.
+- MMLU and XNLI.
 
-## Contributions
-- Mathematically formalize the assessment of uncertainty/confidence measures for LMs in NLG tasks.
-> I think the mathematical definitions are good!
-- Demonstrate existing assessment metrics (e.g., AUROC, ECE, etc) have several limitations, including a heavy dependence on the LM’s performance, instability caused by ad hoc binarization of correctness scores, and incompatibility with diverse uncertainty ranges.
-- Lower uncertainty/higher confidence should indicate higher-quality generation. Propose assessing uncertainty measures in terms of rank-calibration and introduce a suitable metric, the Rank-Calibration Error (RCE).
-- Introduce the Empirical RCE—an estimate of RCE based on a finite dataset to make rank-calibration practical.
-- Demonstrate the broader applicability and granular interpretability of the proposed methods.
+### Settings
+
+- Achieving Target Precision.
+- Reducing Calibration Error.
+
+## Future Work
+
+Future work should study few-shot recalibration for natural language generation tasks, to steer model generated text to be more or less conservative, as well as apply this approach to a broader set of models, including instruction-tuned and RLHF models, and multimodal settings.
